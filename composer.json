@@ -1,0 +1,20 @@
+{
+  "name": "altius/laravel-support",
+  "description": "Altius Laravel Support Libraries",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hari Kant",
+      "email": "hari@altiusrt.com"
+    }
+  ],
+  "require": {
+    "kint-php/kint": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Altius\\": "src/"
+    }
+  }  
+}
