@@ -8,6 +8,8 @@ trait RegisterControllerTrait {
     static public function register() {
         $r = app()->make('router');
 
+        
+
         $r->controller(get_called_class())->group(function () use($r) {
             static::routes($r);
         });
@@ -22,3 +24,4 @@ trait RegisterControllerTrait {
     }
 
 }
+
