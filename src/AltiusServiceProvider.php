@@ -10,7 +10,7 @@ class AltiusServiceProvider extends ServiceProvider
 {
   public function register()
   {
-
+    include(__DIR__ . '/helpers.php');
     $this->app->singleton(Breadcrumbs::class, function ($app) {
         return new Breadcrumbs;
     });
