@@ -5,46 +5,49 @@ namespace Altius\Services\Forms;
 use Illuminate\Support\Collection;
 
 class Fields extends Collection {
+    static public $id=3;
 
-    protected $types = ['text','password'];
-
-    protected $casts = ['lookup' => LookupField::class];
+    protected $fieldTypes = [
+        'text'      => Field::class,
+        'password'  => Field::class,
+        'lookup'    => LookupField::class,
+        'select'    => SelectField::class
+    ];
 
     protected $object=null;
     protected $group='';
 
-
     public function __call($method,$params) {
 
-
-        if($this->casts[$method]??false) {
-            return $this[$params[0]] = new ($this->casts[$method])($params[0],$method,$this);
-        }
-
-        if(in_array($method,$this->types)){
-            return $this[$params[0]] = new Field($params[0],$method,$this);
+        if(isset($this->fieldTypes[$method])) {
+            return $this[$params[0]] = new ($this->fieldTypes[$method])($params[0],$method,$this);
         }
         return parent::__call($method, $params);
     }
+
     public function object($object,$group='') {
         $this->object=$object;
         $this->group=$group;
         $this->buildFields();
+        return $this;
     }
 
     protected function buildFields() {
+        self::$id++;
+
         $method= 'defineFields'. ucwords($this->group);
         while($this->count())               // remove existing fields
             $this->pop();
         
-        if(method_exists($this->object,$method)) {
-            $this->object->$method($this);
-            return;
-        }
-        throw new \Exception(sprintf('Method %s doesnt exist on %s', $method, get_class($this->object)));
+        if(! method_exists($this->object,$method)) 
+            throw new \Exception(sprintf('Method %s doesnt exist on %s', $method, get_class($this->object)));
+        
+        $this->object->$method($this);
+        return $this;
+        
     }
 
-
+    // Forms Display Methods
     public function setDefaults() {			// load defaults into form
 		foreach($this as $f) 
 			$f->setDefault();
@@ -57,8 +60,7 @@ class Fields extends Collection {
 		return $this;
 	}
 
-
-    // Validation
+    // Forms Processing Methods
     public function validate($values=null){
         $this->interceptValidation();
         $values ??= request()->all();
@@ -97,7 +99,6 @@ class Fields extends Collection {
     }
     protected function interceptValidation() {
         // do lookups and other stuff here.
-
         return;
 
         if(request()->has('_modelLookup')) {

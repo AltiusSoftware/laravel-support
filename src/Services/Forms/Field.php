@@ -7,9 +7,10 @@ class Field {
     public $name;
     public $type;
 
-    public $valid=null;
-    protected $default=null;
-    protected $fields;
+    public      $valid=null;
+    protected   $default=null;
+    protected   $fields;
+    public      $help=[];
 
     public function __construct($name,$type,$fields){
         $this->name=$name;
@@ -30,9 +31,11 @@ class Field {
     }
 
     public function getID() {
-        return $this->name;
-
+        return sprintf('f%d-%s',$this->fields::$id,$this->name);
     }
-
-
+    
+    public function isRequired() {
+		$v = explode('|',$this->valid);
+		return in_array('required',$v);
+	}
 }

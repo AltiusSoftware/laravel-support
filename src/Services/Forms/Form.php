@@ -3,8 +3,6 @@
 namespace Altius\Services\Forms;
 
 class Form  {
-
-    //
     // Do we need to store object here?
 
     public $title=null;
@@ -49,6 +47,12 @@ class Form  {
 		return $this;
 	}
 
+    public function fields() {
+        return $this->fields;
+    }
+    
+//Forms/Fields duality
+
     // Values Management
     public function setDefaults() {			// load defaults into form
         $this->fields->setDefaults();
@@ -60,23 +64,15 @@ class Form  {
 		return $this;
 	}
 
-    // Getters
-
-    public function fields() {
-        return $this->fields;
-    }
-
-
-
     public function validate($values=null) {			
         return $this->fields->validate($values);
     }
 
+    // Stub implementation for forms.
     public function defineFields($fs) {
         
         // !d("Override DefineFields in Form Class");
         // exit;
-
 
     }
 
