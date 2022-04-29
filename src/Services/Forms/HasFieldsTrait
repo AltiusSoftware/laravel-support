@@ -1,0 +1,30 @@
+<?php 
+
+namespace Altius\Services\Forms;
+
+trait HasFieldsTrait {
+
+    public function getFields($group=''){
+        !d('getFields');
+
+    }
+    public function getForm($group='') {
+        !d('getForm');
+        exit;
+
+        return (new Form())
+                ->object($this);
+    }
+
+    // public function getFields() {}
+    public function defineFields() {
+
+        return [];
+
+
+
+        
+    }
+
+
+}
