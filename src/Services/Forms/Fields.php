@@ -14,7 +14,7 @@ class Fields extends Collection {
         'select'    => SelectField::class
     ];
 
-    protected $object=null;
+    public $object=null;
     protected $group='';
 
     public function __call($method,$params) {

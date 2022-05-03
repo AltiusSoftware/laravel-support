@@ -1,13 +1,14 @@
 <?php
 
 namespace Altius\Services\Forms;
+use Illuminate\Validation\Rule;
 
 class Field {
 
     public $name;
     public $type;
 
-    public      $valid=null;
+    public      $valid=[];
     protected   $default=null;
     protected   $fields;
     public      $help=[];
@@ -19,23 +20,33 @@ class Field {
     }
 
     public function valid($valid) {
-        $this->valid=$valid;
+        if(is_string($valid)) {
+            foreach(explode('|',$valid) as $v)
+                $this->valid[]=$v;
+        }
+        else
+            $this->valid[]=$valid;
         return $this;
     }
-    public function default($default) {
-        $this->default=$default;
+
+    public function unique($table=null) {
+        $table??= $this->fields->object->getTable();
+        $this->valid[] = Rule::unique($table,$this->name)->ignore($this->fields->object->id??1);
     }
+
+    public function setDefault() {}//TBD
 
     public function fields() {
         return $this->fields;
     }
 
+
+
     public function getID() {
         return sprintf('f%d-%s',$this->fields::$id,$this->name);
     }
-    
+
     public function isRequired() {
-		$v = explode('|',$this->valid);
-		return in_array('required',$v);
+        return  in_array('required',$this->valid);
 	}
 }
