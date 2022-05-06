@@ -3,7 +3,6 @@
 namespace Altius;
 
 class Altius {
+    // Altius helper as a Singleton!
 
-
-    public $x=3;
 }
