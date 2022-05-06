@@ -1,5 +1,6 @@
 <?php
 
+use Altius\Altius;
 
 function messages($group='default') {
     static $inst=null;
@@ -12,4 +13,10 @@ function messages($group='default') {
 
 
 	return $inst  ?? ( $inst = new \Altius\Services\Messages);
+}
+
+function altius() {
+    return app(Altius::class);
+
+
 }
