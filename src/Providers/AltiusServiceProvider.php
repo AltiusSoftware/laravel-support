@@ -33,24 +33,14 @@ class AltiusServiceProvider extends ServiceProvider
     
     $this->routing();
     $this->policies();
-    $this->publish();
+
+
+
     //$this->events();
     
     $this->loadViewsFrom( __DIR__.'/../../resources/views', 'altius');
   }
 
-  protected function publish() {
-    if ($this->app->runningInConsole()) {
-      !d('asdf');
-      // Publish assets
-      $this->publishes([
-        __DIR__.'/../resources/assets/' => public_path('altius'),
-      ], 'altius-assets');
-    
-    }
-
-
-  }
 
   protected function routing() {
         \Illuminate\Routing\Route::macro('title', function($title=null){
@@ -64,6 +54,8 @@ class AltiusServiceProvider extends ServiceProvider
 
       Route::middleware('web')
         ->group(__DIR__. '/../../routes/web.php');
+
+      Route::pushMiddlewareToGroup('web',\Altius\Http\Middleware\Redirect::class);
   
   }
   protected function policies() {
