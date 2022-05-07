@@ -29,7 +29,7 @@ class AltiusServiceProvider extends ServiceProvider
 
   public function boot()
   {
-    // $this->commands();
+    $this->bootCommands();
     
     $this->routing();
     $this->policies();
@@ -41,7 +41,16 @@ class AltiusServiceProvider extends ServiceProvider
     $this->loadViewsFrom( __DIR__.'/../../resources/views', 'altius');
   }
 
-
+  protected function bootCommands() {
+    if ($this->app->runningInConsole()) {
+      /*
+      $this->commands([
+          \Altius\Console\SwitchToDevMode::class,
+      ]);
+      */
+    }
+  }
+   
   protected function routing() {
         \Illuminate\Routing\Route::macro('title', function($title=null){
           app(Breadcrumbs::class)->title($this->getName(),$title);
