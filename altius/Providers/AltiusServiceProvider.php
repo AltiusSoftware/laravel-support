@@ -43,11 +43,9 @@ class AltiusServiceProvider extends ServiceProvider
 
   protected function bootCommands() {
     if ($this->app->runningInConsole()) {
-      /*
       $this->commands([
-          \Altius\Console\SwitchToDevMode::class,
+          
       ]);
-      */
     }
   }
    
