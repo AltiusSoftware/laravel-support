@@ -71,6 +71,15 @@ class AltiusServiceProvider extends ServiceProvider
 
   }
       
+  protected function registerAppPolicy($appPolicyClass) {
+    $reflect = new \ReflectionClass($appPolicyClass);
+    foreach($reflect->getMethods(\ReflectionMethod::IS_PUBLIC) as $m) {
+      if(!$m->isStatic()) {
+        Gate::define(\Str::kebab($m->name),$appPolicyClass .'@'.$m->name);
+        
+      }
+    }
+  }
     
   
 }
