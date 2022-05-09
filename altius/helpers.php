@@ -2,6 +2,8 @@
 
 use Altius\Altius;
 
+if(!function_exists('messages')) {
+
 function messages($group='default') {
     static $inst=null;
 
@@ -14,9 +16,12 @@ function messages($group='default') {
 
 	return $inst  ?? ( $inst = new \Altius\Services\Messages);
 }
+}
 
+if(!function_exists('altius')) {
 function altius() {
     return app(Altius::class);
 
 
+}
 }

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Altius\Controllers\AltiusController::register();
-Altius\Controllers\LocalController::register();
+Altius\Http\Controllers\AltiusController::register();
+
+
+Altius\Http\Controllers\LocalController::register();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Controllers;
+namespace Altius\Http\Controllers;
 
 
 class LocalController extends BaseController {
@@ -9,7 +9,7 @@ class LocalController extends BaseController {
         $this->middleware('can:local');
     }
 
-    static protected function routes($r){
+    protected function _routes($r){
         $r->get('/altius/local','index')
             ->name('altius.local.index');
     }

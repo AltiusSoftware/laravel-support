@@ -10,6 +10,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+//use Illuminate\Routing\Router;
 
 class AltiusServiceProvider extends ServiceProvider
 {
@@ -31,8 +32,7 @@ class AltiusServiceProvider extends ServiceProvider
   {
     $this->bootCommands();
     
-    $this->routing();
-    $this->policies();
+    $this->bootRouting();
 
 
 
@@ -49,26 +49,14 @@ class AltiusServiceProvider extends ServiceProvider
     }
   }
    
-  protected function routing() {
-        \Illuminate\Routing\Route::macro('title', function($title=null){
-          app(Breadcrumbs::class)->title($this->getName(),$title);
-          return $this;
-      });
-      \Illuminate\Routing\Route::macro('parent', function($parent=null,$params=null){
-          app(Breadcrumbs::class)->parent($this->getName(),$parent,$params);
-          return $this;
-      });
+  protected function bootRouting() {
 
       Route::middleware('web')
         ->group(__DIR__. '/../../routes/web.php');
 
+      // ajax redirect handling for forms
       Route::pushMiddlewareToGroup('web',\Altius\Http\Middleware\Redirect::class);
   
-  }
-  protected function policies() {
-    // \Altius\Policies\AppPolicy::register();
-    // Register in 
-
   }
       
   protected function registerAppPolicy($appPolicyClass) {
@@ -80,6 +68,6 @@ class AltiusServiceProvider extends ServiceProvider
       }
     }
   }
-    
+
   
 }

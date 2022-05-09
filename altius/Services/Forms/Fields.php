@@ -9,7 +9,9 @@ class Fields extends Collection {
 
     protected $fieldTypes = [
         'text'      => Field::class,
+        'email'      => Field::class,
         'password'  => Field::class,
+        'checkbox'  => Field::class,
         'lookup'    => LookupField::class,
         'select'    => SelectField::class
     ];

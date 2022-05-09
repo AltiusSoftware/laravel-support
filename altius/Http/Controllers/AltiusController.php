@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Controllers;
+namespace Altius\Http\Controllers;
 
 
 class AltiusController extends BaseController {
@@ -9,13 +9,19 @@ class AltiusController extends BaseController {
         $this->middleware('can:altius');
     }
 
-    static protected function routes($r){
+    protected function _routes($r){
         $r->get('/altius','index')
             ->name('altius.index');
-    }
+
+        $r->get('/altius/login','login')
+            ->name('altius.login')
+            ->post();
+
+        }
     public function index() {
-        !d('Altius Remote Stuff!');
+        !d('Altius Local Package');
 
 
+        
     }
 }

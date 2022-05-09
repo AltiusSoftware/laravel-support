@@ -19,13 +19,15 @@ class Field {
         $this->fields=$fields;
     }
 
-    public function valid($valid) {
-        if(is_string($valid)) {
-            foreach(explode('|',$valid) as $v)
-                $this->valid[]=$v;
+    public function valid(...$rules) {
+        foreach ($rules as $r) {
+            if(is_string($r)) {    
+                foreach(explode('|',$r) as $v)
+                    $this->valid[]=$v;
+            }
+            else
+                $this->valid[]=$r;
         }
-        else
-            $this->valid[]=$valid;
         return $this;
     }
 
@@ -41,6 +43,13 @@ class Field {
     }
 
 
+    public function display($value) {
+        return $value;
+    }
+
+    public function getLabel() {
+        return ucwords($this->name)   ;
+    }
 
     public function getID() {
         return sprintf('f%d-%s',$this->fields::$id,$this->name);

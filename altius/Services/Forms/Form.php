@@ -18,6 +18,7 @@ class Form  {
     protected $object=null;
 
     public function __construct() {
+        $this->title=config('app.name');
         $this->buttons=collect();
         $this->fields = new Fields;
         $this->object($this);
