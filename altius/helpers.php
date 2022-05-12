@@ -25,3 +25,13 @@ function altius() {
 
 }
 }
+
+if(!function_exists('tags')) {
+    function tags(...$params) {
+
+        return Gate::allows(...$params) ?
+                'acl-allows'
+            :   'acl-denies';
+
+    }
+}

@@ -8,11 +8,12 @@
     @include('altius::layout.head')
   </head>
 
-  <body class="p-2">
+  <body class="m-10 bg-blue-200">
 
 
   {{ $slot }}
 
+   
   @include('altius::layout.scripts')
 </body>
 </html>

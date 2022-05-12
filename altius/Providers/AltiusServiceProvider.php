@@ -4,6 +4,7 @@ namespace Altius\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Support\Facades\Blade;
 use Altius\Services\Breadcrumbs;
 use Altius\Altius;
 use App\Models\User;
@@ -34,7 +35,9 @@ class AltiusServiceProvider extends ServiceProvider
     
     $this->bootRouting();
 
-
+    Blade::directive('tags', function ($expression) {
+      return "<?php echo tags($expression) ?>";
+    });
 
     //$this->events();
     

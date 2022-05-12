@@ -10,6 +10,8 @@ class Field {
 
     public      $valid=[];
     protected   $default=null;
+    protected   $value=null;
+
     protected   $fields;
     public      $help=[];
 
@@ -36,7 +38,27 @@ class Field {
         $this->valid[] = Rule::unique($table,$this->name)->ignore($this->fields->object->id??1);
     }
 
-    public function setDefault() {}//TBD
+    public function default($default) {
+        $this->default=$default;
+        return $this;
+
+    }
+
+    public function getformValue(){
+        if(key_exists($this->name,request()->old()))
+            return old($this->name);
+        return $this->value;
+    }
+
+    public function setDefault() {
+        $this->value = $this->default;
+
+    }
+
+    public function setValue($value){
+        $this->value=$value;
+
+    }
 
     public function fields() {
         return $this->fields;

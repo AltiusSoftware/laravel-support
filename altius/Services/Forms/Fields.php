@@ -56,8 +56,13 @@ class Fields extends Collection {
 		return $this;
 	}
 	public function setValues($values){        // sets values into form
+
+
+
+
 		foreach($this as $f) {
-			$f->value= data_get($values,$f->name);				
+			$f->setValue(data_get($values,$f->name));				
+
 		}
 		return $this;
 	}

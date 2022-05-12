@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
+use Altius\Mail\PasswordReset;
+
 class LoginController extends BaseController {
 
     protected function _routes($r){
@@ -32,13 +34,13 @@ class LoginController extends BaseController {
 
     }
     public function logout() {
-            Auth::logout();
- 
-            request()->session()->invalidate();
-            request()->session()->regenerateToken();
+        Auth::logout();
 
-            messages()->success('You have logged out');
-            return redirect('/');            
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        messages()->success('You have logged out');
+        return redirect('/');            
     }
 
     public function loginPost() {
@@ -77,9 +79,19 @@ class LoginController extends BaseController {
 
         if($user) {
             $code = md5($user->email . $user->password);
-            $url = url()->temporarySignedRoute('password.setup',now()->addMinutes(30),['code' => $code]);
-            if(app()->environment('local'))
-                echo($url);
+
+            $minutes = 30;
+           $user->email='hari@stuff.com';
+            $url = url()->temporarySignedRoute('password.setup',now()->addMinutes($minutes),['code' => $code]);
+
+             $x=\Mail::to($user)->send( new PasswordReset($url, $minutes));
+             !d($x);
+            messages()->success(sprintf('Password reset instructions have been sent to %s',$user->email));
+            !d('done');
+            exit;
+
+            return redirect('/');
+
         } else {
 
             !d('not found');
