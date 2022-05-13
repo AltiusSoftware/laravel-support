@@ -1,0 +1,10 @@
+
+html:not(.formsReady) [data-modal],
+html:not(.formsReady) [data-confirm],
+html:not(.formsReady) [data-post] {
+    pointer-events: none;
+    cursor: wait;
+}
+
+/* Alpine x-cloak */
+[x-cloak] { display: none !important; }

@@ -1,0 +1,118 @@
+.table,
+.table-lg,
+.table-xl,
+.table-sm,
+.table-xs
+{
+    @apply shadow-lg bg-white;
+}
+.table tr th {
+    @apply bg-blue-100 border px-2 py-1 align-bottom;
+}
+
+.table tr td {
+    @apply border px-2 py-1 align-top;
+}
+
+
+table.table-striped tr:nth-child(odd){
+    @apply bg-gray-200;
+}
+
+table.table-hover tr:hover{
+    @apply bg-gray-300;
+}
+
+.table-xl {
+
+}
+
+.table-xl tr th {
+    @apply bg-blue-100 border  px-2 py-1 align-bottom;
+    @apply text-xl;
+}
+
+.table-xl tr td {
+    @apply border px-2 py-1 align-top;
+    @apply text-xl;    
+}
+
+.table-lg {
+    
+}
+
+.table-lg tr th {
+    @apply bg-blue-100 border px-2 py-1 align-bottom;
+    @apply text-lg;
+}
+
+.table-lg tr td {
+    @apply border px-2 py-1 align-top;
+    @apply text-lg;    
+}
+
+.table-sm {
+    
+}
+
+.table-sm tr th {
+    @apply bg-blue-100 border px-2 py-1 align-bottom;
+    @apply text-sm;
+}
+
+.table-sm tr td {
+    @apply border px-2 py-1 align-top;
+    @apply text-sm;    
+}
+.table-xs {
+
+}
+
+.table-xs tr th {
+    @apply bg-blue-100 border  px-2 py-1 align-bottom;
+    @apply text-xs;
+}
+
+.table-xs tr td {
+    @apply border  px-2 py-1 align-top;
+    @apply text-xs;    
+}
+
+tr.table-info,
+td.table-info {
+    @apply bg-blue-200;
+}
+tr.table-success,
+td.table-success {
+    @apply bg-green-200;
+}
+tr.table-error,
+td.table-error {
+    @apply bg-red-200;
+}
+
+tr.table-warning,
+td.table-warning {
+    @apply bg-yellow-200;
+}
+
+.table-hover tr:hover td.table-info,
+.table-hover tr.table-info:hover{
+    @apply bg-blue-300;
+}
+
+
+.table-hover tr:hover td.table-success,
+.table-hover tr.table-success:hover{
+    @apply bg-green-300;
+}
+
+.table-hover tr:hover td.table-error,
+.table-hover tr.table-error:hover{
+    @apply bg-red-300;
+}
+
+.table-hover tr:hover td.table-warning,
+.table-hover tr.table-warning:hover{
+    @apply bg-yellow-300;
+}

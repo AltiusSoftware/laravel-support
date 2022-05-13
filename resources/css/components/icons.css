@@ -1,0 +1,22 @@
+i.success,
+i.green {
+    @apply text-green-600;
+
+}
+i.blue,
+i.info {
+    @apply text-blue-600;
+
+}
+
+i.red,
+i.error {
+    @apply text-red-600;
+
+}
+
+i.yellow,
+i.warning {
+    @apply text-yellow-600;
+
+}
