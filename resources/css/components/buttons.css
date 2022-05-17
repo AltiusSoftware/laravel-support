@@ -25,6 +25,7 @@
     @apply bg-gray-700;
 }
 
+button.btn-blue,
 .btn-blue {
     @apply bg-blue-500 text-white;
 }

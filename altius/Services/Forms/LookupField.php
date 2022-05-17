@@ -2,7 +2,7 @@
 
 namespace Altius\Services\Forms;
 
-class LookupField extends BaseField {
+class LookupField extends Field {
 
     protected $model;
     public function model($model) {

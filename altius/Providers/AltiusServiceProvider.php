@@ -19,6 +19,8 @@ class AltiusServiceProvider extends ServiceProvider
   {
     include(__DIR__ . '/../helpers.php');
 
+
+
     $this->app->singleton(Breadcrumbs::class, function ($app) {
         return new Breadcrumbs;
     });
@@ -34,6 +36,9 @@ class AltiusServiceProvider extends ServiceProvider
     $this->bootCommands();
     
     $this->bootRouting();
+
+    $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
 
     Blade::directive('tags', function ($expression) {
       return "<?php echo tags($expression) ?>";

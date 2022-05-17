@@ -13,7 +13,7 @@ trait LanguageTrait{
     }
 
     public function __($key,$replace=[], $local = null){
-        $keys=$this->getLanguageKeys();
+        $keys=$this->getLanguagePrefixes();
 
         foreach($keys as $k) {
             $v = $k . '.'.$key;

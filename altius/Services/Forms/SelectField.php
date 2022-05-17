@@ -1,6 +1,7 @@
 <?php
 
 namespace Altius\Services\Forms;
+use Illuminate\Validation\Rule;
 
 class SelectField extends Field {
 
@@ -15,5 +16,13 @@ class SelectField extends Field {
         return $this;
 
     }
+    
+    public function getOptions() {
+        return $this->options;
+    }
 
+    public function validSelection() {
+        $this->valid[]=Rule::in( array_keys($this->options));
+    
+    }
 }

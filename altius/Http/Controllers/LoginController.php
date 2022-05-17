@@ -81,7 +81,7 @@ class LoginController extends BaseController {
             $code = md5($user->email . $user->password);
 
             $minutes = 30;
-           $user->email='hari@stuff.com';
+
             $url = url()->temporarySignedRoute('password.setup',now()->addMinutes($minutes),['code' => $code]);
 
              $x=\Mail::to($user)->send( new PasswordReset($url, $minutes));

@@ -11,15 +11,16 @@
                 @foreach($form->fields() as $f)
                     <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-0" for="{{ $f->getID()  }}">
-                                {{ $f->name }}
+                                {{ $f->getLabel() }}
                                 {!! $f->isRequired() ? '<i class="fas fa-sm fa-asterisk">*</i>':'' !!}
                                 @if(config('app.debug'))
                                     <span class="float-right text-gray-400 hover:text-gray-800">{{ $f->name}}: {{ $f->type }}</span>
                                 @endif
                             </label>        
-                            @include('altius::forms.field',['field'=>$f])
+                            @include('altius::forms.fields.editor',['field' => $f, 'value' => $f->getValue()])  
+
                             <p data-error="{{ $f->name }}" class="text-red-500 text-sm">@error($f->name){{ $message }}@enderror</p>
-                            @if($help=$f->help)
+                                @if($help=$f->help)
                                 <p class="text-grey-500 text-sm ">
                                 @foreach(Arr::wrap($help) as $h)
                                     {{ $h }} <br/>

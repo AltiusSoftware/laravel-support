@@ -12,6 +12,8 @@ class Field {
     protected   $default=null;
     protected   $value=null;
 
+    protected   $viewLevel=1;
+
     protected   $fields;
     public      $help=[];
 
@@ -50,6 +52,10 @@ class Field {
         return $this->value;
     }
 
+    public function getValue(){
+        return $this->value;
+    }
+
     public function setDefault() {
         $this->value = $this->default;
 
@@ -66,6 +72,10 @@ class Field {
 
 
     public function display($value) {
+
+        
+
+
         return $value;
     }
 

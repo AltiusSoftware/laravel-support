@@ -11,6 +11,10 @@ class Messages {
 
 	public function __construct() {
 		$this->messages=collect(session('flash_messages',[]));
+
+		$this->loadTemplates();
+
+
 	}
 
 	public function group($g) {
@@ -81,7 +85,17 @@ class Messages {
 		}
 		return $ret;
 	}
+	protected $styles = ['alert'];
+	protected function loadTemplates(){
+		$dir = realpath(__DIR__ . '/../../resources/views/messages');
+		$this->temmplates=[];
+		foreach($this->styles as $s)
+			foreach(['info','success','warning','error'] as $t)
+				$this->templates[$s][$t] =  file_get_contents("$dir/$s/$t.blade.php");
+			
 
+
+	}
 // info/success/warning/error
 	protected $templates = [
 			'alert' => 

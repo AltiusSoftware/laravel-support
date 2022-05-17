@@ -8,6 +8,7 @@ class Fields extends Collection {
     static public $id=3;
 
     protected $fieldTypes = [
+        'id'        => IDField::class,
         'text'      => Field::class,
         'email'      => Field::class,
         'password'  => Field::class,
@@ -18,6 +19,12 @@ class Fields extends Collection {
 
     public $object=null;
     protected $group='';
+
+    public function id($name='id'){
+        return $this[$name] = new IDField($name,'id',$this);
+    }
+
+
 
     public function __call($method,$params) {
 
