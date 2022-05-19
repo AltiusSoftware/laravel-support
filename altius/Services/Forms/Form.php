@@ -2,6 +2,8 @@
 
 namespace Altius\Services\Forms;
 
+use \Altius\Services\Fields\Fields;
+
 class Form  {
     // Do we need to store object here?
 
@@ -18,7 +20,10 @@ class Form  {
     protected $object=null;
 
     public function __construct() {
-        $this->title=config('app.name');
+        
+        
+
+        $this->title=\Str::headline(class_basename($this));
         $this->buttons=collect();
         $this->fields = new Fields;
         $this->object($this);

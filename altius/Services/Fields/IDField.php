@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Services\Forms;
+namespace Altius\Services\Fields;
 
 class IDField extends Field {
 

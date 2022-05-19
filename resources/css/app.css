@@ -2,3 +2,9 @@
 
 @import './forms.css';
 @import './acl.css';
+
+
+
+a.link {
+    @apply text-blue-400;
+}

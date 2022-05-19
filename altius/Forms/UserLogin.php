@@ -1,6 +1,6 @@
 <?php namespace Altius\Forms;
 
-class Login extends \Altius\Services\Forms\Form {
+class UserLogin extends \Altius\Services\Forms\Form {
 
     
     

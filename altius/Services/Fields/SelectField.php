@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Services\Forms;
+namespace Altius\Services\Fields;
 use Illuminate\Validation\Rule;
 
 class SelectField extends Field {

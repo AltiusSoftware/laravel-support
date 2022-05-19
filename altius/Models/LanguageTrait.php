@@ -4,6 +4,24 @@ trait LanguageTrait{
 
     use \Altius\Services\LanguageTrait;
 
+    public function getSummaryAttribute() {
+        return $this->name;
+
+    }
+
+    public function getShortAttribute() {
+        return $this->name;
+
+    }
+
+    public function getSingularAttribute() {
+        return $this->__('singular');
+    }
+    public function getPluralAttribute() {
+        return $this->__('plural');
+    }
+
+
     public function getLanguagePrefixes() {
         return [    
                 sprintf('models.%s',$this->getTable()),
@@ -12,15 +30,6 @@ trait LanguageTrait{
 
     }
 
-    public function __($key,$replace=[], $local = null){
-        $keys=$this->getLanguagePrefixes();
 
-        foreach($keys as $k) {
-            $v = $k . '.'.$key;
-            if(\Lang::has($v))
-                return __($v,$replace,$local);
-        }
-        return sprintf('[%s].%s',implode(',',$keys),$key);
-    }
 
 }

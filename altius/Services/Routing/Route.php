@@ -12,6 +12,23 @@ class Route extends \Illuminate\Routing\Route {
         return $this;
     }
 
+    public function post2() {
+        !d($this->uri);
+        return app('router')->lastGetPost($this->getName());
+
+    
+    }
+
+    public $post=null;
+    public function name($name)  {
+        parent::name($name);
+
+
+        if($this->post)
+            $this->post->name("$name.post");
+        return $this;
+
+    }
 
     public function post(){
 

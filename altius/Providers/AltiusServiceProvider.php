@@ -64,6 +64,7 @@ class AltiusServiceProvider extends ServiceProvider
 
       // ajax redirect handling for forms
       Route::pushMiddlewareToGroup('web',\Altius\Http\Middleware\Redirect::class);
+      Route::pushMiddlewareToGroup('web',\Altius\Http\Middleware\UserActivity::class);
   
   }
       

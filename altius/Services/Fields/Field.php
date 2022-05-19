@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Services\Forms;
+namespace Altius\Services\Fields;
 use Illuminate\Validation\Rule;
 
 class Field {
@@ -21,6 +21,11 @@ class Field {
         $this->name=$name;
         $this->type=$type;
         $this->fields=$fields;
+    }
+
+    public function required(){
+        $this->valid[]='required';
+
     }
 
     public function valid(...$rules) {

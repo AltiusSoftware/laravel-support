@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 
-class PasswordReset extends Mailable
+class UserInvite extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -21,7 +21,6 @@ class PasswordReset extends Mailable
     public function __construct(public $url, public $minutes)
     {
         $this->expire = now()->addMinutes($minutes)->addSeconds(1)->diffForHumans();
-        
     }
 
     /**
@@ -31,6 +30,6 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        return $this->markdown('altius::emails.password.reset');
+        return $this->markdown('altius::emails.user.invite');
     }
 }

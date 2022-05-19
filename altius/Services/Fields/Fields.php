@@ -1,6 +1,6 @@
 <?php
 
-namespace Altius\Services\Forms;
+namespace Altius\Services\Fields;
 
 use Illuminate\Support\Collection;
 
@@ -11,9 +11,11 @@ class Fields extends Collection {
         'id'        => IDField::class,
         'text'      => Field::class,
         'email'      => Field::class,
+        'date'      => Field::class,
         'password'  => Field::class,
         'checkbox'  => Field::class,
         'lookup'    => LookupField::class,
+        'parent'    => ParentField::class,
         'select'    => SelectField::class
     ];
 
@@ -24,6 +26,30 @@ class Fields extends Collection {
         return $this[$name] = new IDField($name,'id',$this);
     }
 
+    public function parent(){
+        
+
+        $rel = $this->object->defineParent();
+
+        if($rel) {
+
+            $parent = $this->object->$rel;
+
+            $f = new ParentField($parent->getForeignKey(),'parent',$this);
+            $f->model=get_class($parent);
+
+            return $this[$parent->getForeignKey()] = $f;
+
+            
+
+        }
+
+        !d('Parent does not exist',$this->toArray(),$rel);
+
+
+
+
+    }
 
 
     public function __call($method,$params) {

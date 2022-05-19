@@ -9,7 +9,6 @@ html:not(.formsReady) [data-post] {
 /* Alpine x-cloak */
 [x-cloak] { display: none !important; }
 
-
 input.is-invalid {
 
     @apply border-red-600 border-2 bg-red-200;

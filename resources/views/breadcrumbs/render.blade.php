@@ -7,10 +7,10 @@
         @if($b->current ) 
             {{ $b->title }}
         @else
-            <a class=""  href="{{ $b->url }}">{{ $b->title }}</a>
+            <a class="link"  href="{{ $b->url }}">{{ $b->title }}</a>
         @endif
     @else
-        <a class=""  href="{{ $b->url }}">{{ $b->title}}</a><span class="font-bold p-2">&gt;</span>
+        <a class="link"  href="{{ $b->url }}">{{ $b->title}}</a><span class="font-bold p-2">&gt;</span>
     @endif
 
 @endforeach

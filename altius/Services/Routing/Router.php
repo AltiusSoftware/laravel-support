@@ -16,40 +16,15 @@ class Router extends \Illuminate\Routing\Router {
     }
     
 
-    public function crud($plural,$singular,$verbs=[]){
-        
-        $model =sprintf('{%s}',$singular);
 
-        $this->get("/$plural",'index')
-          ->name("$plural.index")
-          ->title("models.$plural.plural")
-          ->parent('home');
-        
-        $this->get("/$plural/create",'create')
-          ->name("$plural.create")
-          ->title('models.create')
-          ->parent("$plural.index")
-          ->post();
-          
-        $this->get("/$plural/$model",'record')
-          ->name("$plural.record")
-          ->title(fn($record) => $record->summary)
-          ->parent("$plural.index");
+    public function getPost($uri,$action=null){
+       $get = $this->get($uri,$action);
+       $get->post  = $this->post($uri,$action.'Post');
 
-          $verbs = array_merge($verbs, ['edit','delete']);
-          
+       return $get;
 
-  
-        
-        foreach($verbs as $v) {
-          $this->get("/$plural/$model/$v",'record' . ucwords($v))
-            ->name("$plural.record.$v")
-            ->title("models.$v")
-            ->parent("$plural.record",fn($r)=>[$r])
-            ->post();
-        }
-  
-
+    
     }
+
 
 }

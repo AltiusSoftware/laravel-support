@@ -2,15 +2,24 @@
 
 namespace Altius\Http\Controllers;
 
-class ChildController extends RecordController {
+class ChildModelController extends ModelController {
 
     protected function _routes($r){
+        $r->model($this->slug,$this->model);
 
-        $this->_childRoutes($r);
-        parent::_routes($r);
+        $r  ->prefix("$this->slug/{{$this->slug}}")
+            ->name("$this->slug.")
+            ->group(function() use($r) {
+                $this->_routesRecord($r);
+            });
+
+        $r  ->prefix("$this->parent/{{$this->parent}}/$this->slug")
+            ->name("$this->parent.$this->slug.")
+            ->group(function() use($r) {
+                $this->_routesModel($r);
+            });
     }
-
-
+   
     
     protected function setParent($parent){
         $record = new $this->model;
@@ -19,33 +28,8 @@ class ChildController extends RecordController {
     }
     
 
-    protected function _childRoutes($r,$verbs=['create']) {
 
-        $r->get("$this->parent/{{$this->parent}}/$this->slug",'index')
-            ->name("$this->parent.record.$this->slug.index")
-            ->title("models.$this->slug.plural")
-            ->parent("$this->parent.record",fn($r)=>[$r]);
-
-
-
-
-        foreach($verbs as $v)
-            $this->_modelGet($r,$v)
-                ->post();
-    }
-
-    protected function _modelGet($r,$verb){
-        return
-            $r->get("$this->parent/{{$this->parent}}/$this->slug/$verb",$verb)
-                ->name("$this->parent.record.$this->slug.$verb")
-                ->title("models.$verb")
-                ->parent("$this->parent.record.$this->slug",fn($r)=>[$r]);
-        
-
-    }
-
-
-    public function index($parent){
+    public function index($parent=null){
 
         $this->setParent($parent);
         $recs = $this->model::
@@ -53,9 +37,10 @@ class ChildController extends RecordController {
                 ->orderBy('id')->paginate(20);
         return view()->make( $this->record->view('index'),['records' => $recs]);
     }
-    public function create() {
+    public function create($parent=null) {
         $this->authorize('create',$this->model);
-        $this->setRecord();
+        $this->setParent($parent);
+        
 
         $form = $this->record->getForm()
                 ->ajax()
@@ -64,9 +49,10 @@ class ChildController extends RecordController {
     }
 
     
-    public function createPost() {
+    public function createPost($parent=null) {
         $this->authorize('create',$this->model);
-        $this->setRecord();
+        $this->setParent($parent);
+
         $values = $this->record->getForm()
                     ->validate();
 

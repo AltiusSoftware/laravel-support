@@ -1,11 +1,10 @@
-<div class="w-full m-auto">
-<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+<form class="bg-white px-2 pt-2 pb-2"
               @if($form->ajax) data-ajax @endif
               action="{{ $form->action }}" method="POST">
               @csrf        
               @method($form->method)
               @if($form->title)
-                <div class="mb-6 text-md font-bold text-center">{{ $form->title}}</div>
+                <div class="mb-6 text-lg font-bold text-center">{{ $form->title}}</div>
               @endif
               <p data-error="__form" class="text-red-500 font-bold text-sm"></p>        
                 @foreach($form->fields() as $f)
@@ -33,4 +32,3 @@
 
     <button class="btn btn-blue" type="submit">Submit</button>
 </form>
-</div>

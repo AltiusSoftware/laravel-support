@@ -23,4 +23,10 @@ class AppPolicy {
     public function altius(?User $user) {
         return app()->environment('local');
     }
+
+    public function nousers(?User $user) {
+        return User::count()==0;
+
+
+    }
 }

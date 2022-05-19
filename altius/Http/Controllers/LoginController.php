@@ -10,6 +10,7 @@ use Altius\Mail\PasswordReset;
 class LoginController extends BaseController {
 
     protected function _routes($r){
+        
         $r->get('/login','login')
             ->name('login')
             ->post();
@@ -25,14 +26,20 @@ class LoginController extends BaseController {
         $r->get('password/setup','passwordSetup')
             ->name('password.setup')
             ->post();
+
+        
+
+
+
     }
+
 
     public function login() {
-        $form = (new \Altius\Forms\Login)
+        $form = (new \Altius\Forms\UserLogin)
             ->ajax();
         return view()->make('altius::user.login',['form' => $form]);
-
     }
+
     public function logout() {
         Auth::logout();
 
@@ -44,7 +51,7 @@ class LoginController extends BaseController {
     }
 
     public function loginPost() {
-        $form = new \Altius\Forms\Login;
+        $form = new \Altius\Forms\UserLogin;
 
         $valid = $form->validate();
 
@@ -67,7 +74,10 @@ class LoginController extends BaseController {
         $form = (new \Altius\Forms\PasswordRemind)
                 //->ajax()
                 ;
-        return view()->make('altius::basicform',['form' => $form]);
+
+        return view()->make('altius::user.password.remind',['form' => $form]);
+        
+        
 
 
     }
@@ -78,24 +88,15 @@ class LoginController extends BaseController {
         $user = User::firstWhere(['email'=>$valid['email']]);
 
         if($user) {
-            $code = md5($user->email . $user->password);
 
-            $minutes = 30;
-
-            $url = url()->temporarySignedRoute('password.setup',now()->addMinutes($minutes),['code' => $code]);
-
-             $x=\Mail::to($user)->send( new PasswordReset($url, $minutes));
-             !d($x);
+            $user->sendPasswordReset(30);
             messages()->success(sprintf('Password reset instructions have been sent to %s',$user->email));
-            !d('done');
-            exit;
 
-            return redirect('/');
+            return redirect()->route('login');
 
         } else {
-
-            !d('not found');
-            exit;
+            messages()->warning(sprintf('We cannot find a user with this email'));
+            return redirect()->back();
         }
 
 
@@ -112,12 +113,17 @@ class LoginController extends BaseController {
 
         $form->title='Setup your password';
 
+        return view()->make('altius::user.password.setup',['form' => $form]);
+
         return view()->make('altius::basicform',['form' => $form]);
 
     }
 
     public function passwordSetupPost() {
-        if (! request()->hasValidSignature()) {
+        $user = User::where(\DB::raw('md5(concat(email,password))'),request()->get('code'))->first();
+
+        
+        if (is_null($user) || ! request()->hasValidSignature()) {
             messages()->warning('This link has expired!');
             return redirect()->route('password.remind');
         }
@@ -125,14 +131,14 @@ class LoginController extends BaseController {
         $valid=  (new \Altius\Forms\PasswordSetup)
                     ->validate();
 
-        $user = User::where(\DB::raw('md5(concat(email,password))'),request()->get('code'))->first();
+        
 
         $user->password = Hash::make($valid['password']);
         $user->save();
 
-        messages()->success('Your password has been setup');
+        messages()->success('Your password has been Reset!  Please login now');
 
-        return redirect()->route('home');
+        return redirect()->route('login');
 
     }
 }

@@ -4,6 +4,7 @@
             {{ $f->getLabel() }}
         </td>
         <td>
+            
             @include('altius::forms.fields.display',['field' => $f, 'value' => $f->getValue()])
         </td>
     </tr>

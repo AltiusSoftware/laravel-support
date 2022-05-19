@@ -9,6 +9,7 @@ trait LanguageTrait {
 
     public function __($key,$replace=[], $local = null){
         $prefixes=$this->getLanguagePrefixes();
+        
 
         foreach($prefixes as $p) {
             $v = $p . '.'.$key;

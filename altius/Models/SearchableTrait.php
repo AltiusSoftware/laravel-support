@@ -2,11 +2,16 @@
 
 namespace Altius\Models;
 
-trait IncrementalSearchTrait {
+trait SearchableTrait {
+
+
     protected function getIncrementalSearchFields() {
         return ['name'];
 
     }
+    public function scopeFullTextSearch($query,$text){}
+    public function scopeCharacterSearch($query,$text) {}
+
     public function scopeIncrementalSearch($query,$text)
     {
         

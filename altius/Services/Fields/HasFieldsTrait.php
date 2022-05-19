@@ -1,5 +1,7 @@
 <?php
-namespace Altius\Services\Forms;
+namespace Altius\Services\Fields;
+
+use Altius\Services\Forms\Form;
 
 trait HasFieldsTrait {
 
