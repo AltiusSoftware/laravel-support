@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Model\User;
 
-class UserRole extends Model {
+class RecordRole extends Model {
 
     public function securable()
     {

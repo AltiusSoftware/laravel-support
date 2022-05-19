@@ -9,7 +9,7 @@ class UserActivity {
     {
         if(auth()->check()) {
 
-            if(auth()->user()->last_activity?->notEqualTo(now()->startOfMinute())) {
+            if(now()->startOfMinute()->notEqualTo(auth()->user()->last_activity) ) {
                 auth()->user()->last_activity=now()->startOfMinute();
                 auth()->user()->save();
             }
