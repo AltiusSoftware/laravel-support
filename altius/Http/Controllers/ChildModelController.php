@@ -2,25 +2,9 @@
 
 namespace Altius\Http\Controllers;
 
-class ChildModelController extends ModelController {
+class ChildModelController extends BaseRecordController {
 
-    protected function _routes($r){
-        $r->model($this->slug,$this->model);
 
-        $r  ->prefix("$this->slug/{{$this->slug}}")
-            ->name("$this->slug.")
-            ->group(function() use($r) {
-                $this->_routesRecord($r);
-            });
-
-        $r  ->prefix("$this->parent/{{$this->parent}}/$this->slug")
-            ->name("$this->parent.$this->slug.")
-            ->group(function() use($r) {
-                $this->_routesModel($r);
-            });
-    }
-   
-    
     protected function setParent($parent){
         $record = new $this->model;
         $record->{$parent->getForeignKey()} = $parent->id;
@@ -29,7 +13,7 @@ class ChildModelController extends ModelController {
     
 
 
-    public function index($parent=null){
+    public function index($parent){
 
         $this->setParent($parent);
         $recs = $this->model::
@@ -37,7 +21,7 @@ class ChildModelController extends ModelController {
                 ->orderBy('id')->paginate(20);
         return view()->make( $this->record->view('index'),['records' => $recs]);
     }
-    public function create($parent=null) {
+    public function create($parent) {
         $this->authorize('create',$this->model);
         $this->setParent($parent);
         
@@ -49,7 +33,7 @@ class ChildModelController extends ModelController {
     }
 
     
-    public function createPost($parent=null) {
+    public function createPost($parent) {
         $this->authorize('create',$this->model);
         $this->setParent($parent);
 

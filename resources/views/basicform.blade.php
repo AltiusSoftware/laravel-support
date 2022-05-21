@@ -5,7 +5,7 @@
 
     {!! messages()->showAll() !!}
 
-    <div class=" p-4 text-white text-center" style="background: #025a6b;">ss
+    <div class=" p-4 text-white text-center" style="background: #025a6b;">
     © {{ now()->format('Y') }} {{ config('app.name') }} | All Rights Reserved
   </div>
 

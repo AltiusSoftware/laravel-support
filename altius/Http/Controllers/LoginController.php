@@ -7,25 +7,22 @@ use App\Models\User;
 
 use Altius\Mail\PasswordReset;
 
-class LoginController extends BaseController {
+class LoginController extends RegisterController {
 
-    protected function _routes($r){
+    protected function _routes(){
+        $r = app()->make('router');
         
-        $r->get('/login','login')
-            ->name('login')
-            ->post();
+        $r->getPost('/login','login')
+            ->name('login');
 
-        $r->get('/logout','logout')
-            ->name('logout')
-            ->post();
+        $r->getPost('/logout','logout')
+            ->name('logout');
 
-        $r->get('password/remind','passwordRemind')
-            ->name('password.remind')
-            ->post();
+        $r->getPost('password/remind','passwordRemind')
+            ->name('password.remind');
 
-        $r->get('password/setup','passwordSetup')
-            ->name('password.setup')
-            ->post();
+        $r->getPost('password/setup','passwordSetup')
+            ->name('password.setup');
 
         
 

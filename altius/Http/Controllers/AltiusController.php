@@ -5,25 +5,24 @@ namespace Altius\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class AltiusController extends BaseController {
+class AltiusController extends RegisterController {
 
     public function __construct() {
         $this->middleware('can:altius')
         ->except('setup','setupPost');
     }
 
-    protected function _routes($r){
+    protected function _routes(){
+        $r = app()->make('router');
         $r->get('/altius','index')
             ->name('altius.index');
 
         
-        $r->get('/altius/form','form')
-            ->name('altius.form')
-            ->post();
+        $r->getPost('/altius/form','form')
+            ->name('altius.form');
 
-        $r->get('/altius/setup','setup')
-            ->name('altius.setup')
-            ->post();
+        $r->getPost('/altius/setup','setup')
+            ->name('altius.setup');
 
     }
     

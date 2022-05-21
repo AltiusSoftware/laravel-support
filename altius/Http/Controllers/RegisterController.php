@@ -7,16 +7,19 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as Controller;
 
-class BaseController extends Controller {
+class RegisterController extends Controller {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+
     static public function register() {
-        $r = app()->make('router');
-        $r->controller(get_called_class())->group(function () use($r) {
-            (new static) ->_routes($r);
+
+        \Route::controller(get_called_class())->group(function () {
+            (new static)->_routes();
+     
+            
         });
     }
-    protected function _routes($r){
+    protected function _routes(){
         !d('Error:  Overide static protected function routes in Controller');
         exit;
     }

@@ -3,11 +3,7 @@
 
 
 class Router extends \Illuminate\Routing\Router {
-
-
-    protected $model, $plural,$singular;
-
-
+    
     public function newRoute($methods, $uri, $action)
     {
         return (new Route($methods, $uri, $action))
