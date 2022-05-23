@@ -38,10 +38,15 @@ class ModelController extends BaseModelController {
     public function index() {
         $this->authorize('index',$this->record);
 
+        $rows = in_array(request()->get('rows'),[20,50,100]) ? request()->get('rows') : 20;
+
+        
+
         $records = $this->record
                 ->secure()
                 ->autoSort()
-                ->paginate(20);
+                ->autoSearch()
+                ->paginate($rows);
 
         return view()->make($this->record->view('index'),['records'=>$records]);
     }

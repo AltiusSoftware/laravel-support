@@ -45,8 +45,14 @@ class AltiusServiceProvider extends ServiceProvider
     });
 
     //$this->events();
+
+    
     
     $this->loadViewsFrom( __DIR__.'/../../resources/views', 'altius');
+
+    view()->getFinder()->addLocation(__DIR__.'/../../resources/views');
+
+
   }
 
   protected function bootCommands() {
