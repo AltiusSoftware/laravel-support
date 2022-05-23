@@ -1,13 +1,13 @@
 <x-layout>
 
 @php $fields = $record->getFields();    @endphp
-    <x-portal type="blue" class="w-1/2">
-        <x-portal.header>
+    <altius::x-portal type="blue" class="w-1/2">
+        <altius::x-portal.header>
         {{ $record->plural }}
-            <x-portal.actions>
+            <altius::x-portal.actions>
                 <a href="{{ $record->routeAll('create') }}" class="btn btn-blue">Create {{ $record->singular }}</a>
-                </x-portal.actions>
-        </x-portal.header>
+                </altius::x-portal.actions>
+        </altius::x-portal.header>
         <table class="table table-sm w-full">
             <tr>
                 <th>Action</th>
@@ -35,7 +35,7 @@
             </td></tr>
 
             </table>
-    </x-portal>
+    </altius::x-portal>
 
 
 

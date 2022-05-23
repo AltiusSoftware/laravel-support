@@ -9,12 +9,14 @@
               <p data-error="__form" class="text-red-500 font-bold text-sm"></p>        
                 @foreach($form->fields() as $f)
                     <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-0" for="{{ $f->getID()  }}">
+                            <label class="block text-gray-700 text-sm font-bold mb-0" for="{{ $f->getID()  }}"
+                            @if(config('app.debug'))
+                                    title="{{ $f->name}}: {{ $f->type }}"
+                                @endif
+                            
+                            >
                                 {{ $f->getLabel() }}
                                 {!! $f->isRequired() ? '<i class="fas fa-sm fa-asterisk">*</i>':'' !!}
-                                @if(config('app.debug'))
-                                    <span class="float-right text-gray-400 hover:text-gray-800">{{ $f->name}}: {{ $f->type }}</span>
-                                @endif
                             </label>        
                             @include('altius::forms.fields.editor',['field' => $f, 'value' => $f->getValue()])  
 

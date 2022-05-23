@@ -2,40 +2,74 @@
 
 namespace Altius\Http\Controllers;
 
-class ChildModelController extends BaseRecordController {
+class ChildModelController extends BaseModelController {
 
-
-    protected function setParent($parent){
-        $record = new $this->model;
-        $record->{$parent->getForeignKey()} = $parent->id;
-        $this->setRecord($record);
-    }
     
+    protected function _wrapModel() {
+        \Route::prefix("$this->parentSlug/{{$this->parentSlug}}/$this->recordSlug")
+        ->name("$this->parentSlug.$this->recordSlug.")
+        ->group( function() {
+            $this->_routesModel();
+        });
+    
+    }
+
+    protected function _routesModel() {
+        \Route::get('','index')
+            ->name('index')
+            ->title("models.$this->recordSlug.plural")
+            ->parent("$this->parentSlug.record");
+
+        \Route::getPost('create','create')
+            ->name('create')
+            ->title('models.create')
+            ->parent("$this->parentSlug.$this->recordSlug.index");
+            
+    }
+    protected function _routesRecord(){
+        \Route::get('','record')
+                ->name('record')
+                ->title(fn($r)=> $r->summary)
+                ->parent("$this->parentSlug.$this->recordSlug.index",fn($r)=> [$r->getParent()]);
+        \Route::getPost("edit",'edit')
+                ->name("edit")
+                ->title('models.edit')
+                ->parent("$this->recordSlug.record");
+
+
+        \Route::getPost("delete",'delete')
+                ->name("delete")
+                ->title('models.delete')
+                ->parent("$this->recordSlug.record");
+
+            
+    }
+
 
 
     public function index($parent){
 
-        $this->setParent($parent);
-        $recs = $this->model::
+
+        $recs = $this->record::
             where($parent->getForeignKey(),'=',$parent->id)
                 ->orderBy('id')->paginate(20);
+
         return view()->make( $this->record->view('index'),['records' => $recs]);
     }
     public function create($parent) {
-        $this->authorize('create',$this->model);
-        $this->setParent($parent);
-        
+        $this->authorize('create',$this->record);
 
         $form = $this->record->getForm()
                 ->ajax()
-                ->setDefaults();
+                ->setDefaults()
+                ->setValues($this->record);
+
         return view()->make($this->record->view('create'),['form'=>$form]);
     }
 
     
     public function createPost($parent) {
-        $this->authorize('create',$this->model);
-        $this->setParent($parent);
+        $this->authorize('create',$this->record);
 
         $values = $this->record->getForm()
                     ->validate();
@@ -43,6 +77,7 @@ class ChildModelController extends BaseRecordController {
         $this->record
             ->fill($values)
             ->save();
+
         messages()->success('%s %s created',$this->record->plural,$this->record->summary);
 
         return redirect($this->record->route());

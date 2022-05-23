@@ -1,10 +1,13 @@
 <x-layout>
 
-<h1>Create {{ $record->singular }}</h1>
-
-<div class="w-1/3">
+<div class="w-1/2">
+<altius::x-portal type="blue">
+        <altius::x-portal.header>
+        Create {{ $record->singular }}
+        </altius::x-portal.header>
         @include('altius::forms.form')
-    </div>
+</altius::x-portal>        
+</div>
 
 
 </x-layout>

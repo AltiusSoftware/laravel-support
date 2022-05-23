@@ -12,5 +12,11 @@ trait CrudableTrait {
     use LanguageTrait;
     use RoutableTrait;
 
+    public function scopeSecure($q){}
+
+    public function scopeAutoSort($q) {
+        $q->orderBy('id');
+
+    }
 
 }

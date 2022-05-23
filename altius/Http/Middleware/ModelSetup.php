@@ -16,7 +16,7 @@ class ModelSetup {
 
         switch(true) {
             // RECORD!
-            case (get_class($p1) == $c->class):
+            case ($p1 && (get_class($p1) == $c->class)):
                 $c->record=$p1;
                 $c->parent=$p1->getParent();
                 break;

@@ -14,19 +14,28 @@ class BaseModelController extends RegisterController {
     protected $parentSlug;
     
     // Executing
-    protected $model;
+    //protected $model;
     public $record;
 
-    // override in 
-    abstract protected function _routesRecord();
-    abstract protected function _routesModel();
+    public function __construct() {
+        $this->middleware(\Altius\Http\Middleware\ModelSetup::class);
 
-    public function _routes() {
+    }
+
+    // override in 
+
+
+
+
+    protected function _routes() {
         $this->_registerClass();
-        $this->_wrapRecord();
         $this->_wrapModel();
+        $this->_wrapRecord();
+
     
     }
+    abstract protected function _routesModel();
+
 
     protected function _wrapRecord() {
 
@@ -38,19 +47,12 @@ class BaseModelController extends RegisterController {
 
     }
     protected function _wrapModel() {
-        if($this->parentSlug){
-            \Route::prefix("$this->parentSlug/{{$this->parentSlug}}/$this->recordSlug")
-            ->name("$this->parentSlug.$this->recordSlug.")
+        \Route::prefix("$this->recordSlug")
+            ->name("$this->recordSlug.")
             ->group( function() {
                 $this->_routesModel();
             });
-        } else  {
-            \Route::prefix("$this->recordSlug")
-                ->name("$this->recordSlug.")
-                ->group( function() {
-                    $this->_routesModel();
-                });
-        }
+
     }
 
     protected function _registerClass() {
@@ -75,5 +77,41 @@ class BaseModelController extends RegisterController {
 
 
     }
+
+    // Controller methods for Record Handling
+
+    public function record($record) {
+        $this->authorize('view',$record);
+        return view()->make($record->view('record.view'));
+
+    }
+    public function edit($record) {
+        $this->authorize('edit',$record);
+        $form = $this->record->getForm()
+            ->ajax()
+            ->setValues($this->record);
+
+        return view()->make($this->record->view('record.edit'),['form'=>$form]);            
+    }
+
+    public function editPost($record) {
+        $this->authorize('edit',$record);
+        
+        $values = $record->getForm()
+                    ->validate();
+        $record->fill($values)
+            ->save();
+        
+        messages()->info('%s %s has been updated',$record->singular, $record->summary);        
+        return redirect($record->route());
+    }
+
+    public function delete($record){
+        $this->authorize('delete',$record);
+
+        !d($record->toArray());
+
+    }
+
 
 }
