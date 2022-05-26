@@ -14,13 +14,14 @@ trait RoutableTrait {
 
     
     public function view($name) {
+        
         $views = [
             sprintf('models.%s.%s',$this->getTable(),$name),
-            sprintf('altius::models.%s.%s',$this->getTable(),$name),
+//            sprintf('altius::models.%s.%s',$this->getTable(),$name),
             sprintf('models._base.%s',$name),
-            sprintf('altius::models._base.%s',$name)
+//             sprintf('altius::models._base.%s',$name)
         ];
-
+        
         
 
         foreach($views as $v)

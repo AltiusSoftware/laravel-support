@@ -10,6 +10,7 @@ class Fields extends Collection {
     protected $fieldTypes = [
         'id'        => IDField::class,
         'text'      => Field::class,
+        'textarea'      => Field::class,
         'email'      => Field::class,
         'date'      => Field::class,
         'password'  => Field::class,

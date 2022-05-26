@@ -3,15 +3,15 @@
 @php $fields = $record->getFields();    @endphp
 
 
-    <altius::x-portal type="blue" class="w-1/2">
-        <altius::x-portal.header>
-        {{ $record->plural }}
-            <altius::x-portal.actions>
+    <x-portal type="blue" class="w-1/2">
+        <x-portal.header>
+            {{ $record->plural }}
+            <x-portal.actions>
                 <a href="{{ $record->routeAll('create') }}" class="btn btn-blue">Create {{ $record->singular }}</a>
-                </altius::x-portal.actions>
-        </altius::x-portal.header>
+            </x-portal.actions>
+        </x-portal.header>
         <form>
-            Search:  <input name="q" placeholder="Search" value="{{ request()->get('q')}}">
+            Search:  <input type="text" name="q" placeholder="Search" value="{{ request()->get('q')}}">
         </form>
 
         Records: <a class="link" href="{{ $record->routeAll('index',['rows' => 20]) }}"> 20 </a> 
@@ -34,7 +34,7 @@
                     @php $fields->setValues($r) @endphp
                     @foreach($fields as $f)
                     <td>
-                        @include('altius::forms.fields.display',['field' => $f, 'value' => $r->{$f->name}])
+                        @include('forms.fields.display',['field' => $f, 'value' => $r->{$f->name}])
                     </td>
                     @endforeach
             </tr>   
@@ -45,7 +45,7 @@
             </td></tr>
 
             </table>
-    </altius::x-portal>
+    </x-portal>
 
 
 
