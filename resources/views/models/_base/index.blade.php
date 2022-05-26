@@ -24,6 +24,7 @@
                 @foreach($fields as $f)
                 <th>{{ $f->getLabel() }}</th>
                 @endforeach
+                @include($record->view('browse.extraHeaders'))
             </tr>
             @foreach($records as $r)
             <tr>
@@ -37,6 +38,7 @@
                         @include('forms.fields.display',['field' => $f, 'value' => $r->{$f->name}])
                     </td>
                     @endforeach
+                    @include($record->view('browse.extraColumns'),['record'=>$r])
             </tr>   
             @endforeach
             <tr><td colspan="100">
