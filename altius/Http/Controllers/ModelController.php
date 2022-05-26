@@ -60,13 +60,13 @@ class ModelController extends BaseModelController {
             return view()->make($this->record->view('create'),['form'=>$form]);            
     }
     public function createPost() {
-        $record= $this->setRecord();
-        $this->authorize('create',$record);
+
+        $this->authorize('create',$this->record);
         
-        $values = $record->getForm()
+        $values = $this->record->getForm()
                     ->validate();
 
-        $record->fill($values)
+        $this->record->fill($values)
             ->save();
         
         messages()->info('%s %s has been created',$record->singular, $record->summary);        
