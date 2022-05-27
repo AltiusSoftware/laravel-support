@@ -36,18 +36,22 @@ trait RoutableTrait {
 
     }
 
-    public function routeAll($name='index',...$params) {
+    public function routeAll($name='index',$params=[]) {
         
         if($parent = $this->getParent()) {
-            $params = [$parent->id] + $params;
-            return route(sprintf('%s.%s.%s',$parent->getRouteSlug(),$this->getRouteSlug(),$name),...$params);
+            array_unshift($params,$parent->id);
+
+            return route(sprintf('%s.%s.%s',$parent->getRouteSlug(),$this->getRouteSlug(),$name),$params);
         }
-        return route(sprintf('%s.%s',$this->getRouteSlug(),$name),...$params);
+        return route(sprintf('%s.%s',$this->getRouteSlug(),$name),$params);
     }
 
-    public function route($name='record',...$params) {
+    public function route($name='record',$params=[]) {
+
+
+            array_unshift($params,$this->id);
         $params = [$this->id] + $params;
-        return route(sprintf('%s.%s',$this->getRouteSlug(),$name),...$params);
+        return route(sprintf('%s.%s',$this->getRouteSlug(),$name),$params);
     }
 // Chjild stuff
 

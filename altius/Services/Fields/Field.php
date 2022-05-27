@@ -54,7 +54,7 @@ class Field {
     public function getformValue(){
         if(key_exists($this->name,request()->old()))
             return old($this->name);
-        return $this->value;
+        return $this->getValue();
     }
 
     public function getValue(){

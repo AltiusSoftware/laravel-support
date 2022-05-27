@@ -12,7 +12,7 @@ class Fields extends Collection {
         'text'      => Field::class,
         'textarea'      => Field::class,
         'email'      => Field::class,
-        'date'      => Field::class,
+        'date'      => DateField::class,
         'password'  => Field::class,
         'checkbox'  => Field::class,
         'lookup'    => LookupField::class,
