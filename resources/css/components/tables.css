@@ -4,7 +4,7 @@
 .table-sm,
 .table-xs
 {
-    @apply shadow-lg bg-white;
+    @apply shadow-lg bg-white mb-2;
 }
 
 
