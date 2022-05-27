@@ -1,5 +1,3 @@
-<x-altius::layout-login>
-
-        @include('altius::forms.form') 
-    
-</x-altius::layout-login>
+<x-layout-login>
+    @include('altius::forms.form') 
+</x-layout-login>

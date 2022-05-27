@@ -1,11 +1,5 @@
 
 
-button, [type='button'], [type='reset'], [type='submit'] {
-    background-color: red;
-    
-
-}
-
 .btn { 
     @apply font-bold py-1 px-4 rounded inline-block mb-1;
 }
@@ -32,9 +26,10 @@ button, [type='button'], [type='reset'], [type='submit'] {
     @apply bg-gray-700;
 }
 
-
-.btn-blue {
+a, .btn, [type='button'], [type='reset'], [type='submit'] {
+&.btn-blue {
     @apply bg-blue-500 text-white;
+}
 }
 
 .btn-blue:hover {

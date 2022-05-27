@@ -23,13 +23,7 @@ class LoginController extends RegisterController {
 
         $r->getPost('password/setup','passwordSetup')
             ->name('password.setup');
-
-        
-
-
-
     }
-
 
     public function login() {
         $form = (new \Altius\Forms\UserLogin)
@@ -63,21 +57,16 @@ class LoginController extends RegisterController {
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
 
-
-
-
     }
+
     public function passwordRemind() {
         $form = (new \Altius\Forms\PasswordRemind)
                 //->ajax()
                 ;
 
         return view()->make('altius::user.password.remind',['form' => $form]);
-        
-        
-
-
     }
+
     public function passwordRemindPost() {
         $valid= (new \Altius\Forms\PasswordRemind)
             ->validate();
@@ -95,10 +84,8 @@ class LoginController extends RegisterController {
             messages()->warning(sprintf('We cannot find a user with this email'));
             return redirect()->back();
         }
-
-
-
     }
+
     public function passwordSetup() {
         if (! request()->hasValidSignature()) {
             messages()->warning('This link has expired!');
@@ -127,9 +114,6 @@ class LoginController extends RegisterController {
 
         $valid=  (new \Altius\Forms\PasswordSetup)
                     ->validate();
-
-        
-
         $user->password = Hash::make($valid['password']);
         $user->save();
 
