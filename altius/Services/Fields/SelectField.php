@@ -23,6 +23,8 @@ class SelectField extends Field {
 
     public function validSelection() {
         $this->valid[]=Rule::in( array_keys($this->options));
+
+        return $this;
     
     }
 }
