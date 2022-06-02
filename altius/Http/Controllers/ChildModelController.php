@@ -18,29 +18,31 @@ class ChildModelController extends BaseModelController {
         \Route::get('','index')
             ->name('index')
             ->title("models.$this->recordSlug.plural")
-            ->parent("$this->parentSlug.record");
+            ->parent("$this->parentSlug.record",fn($r)=>[$r]);
 
         \Route::getPost('create','create')
             ->name('create')
             ->title('models.create')
-            ->parent("$this->parentSlug.$this->recordSlug.index");
+            ->parent("$this->parentSlug.$this->recordSlug.index",fn($r)=>[$r]);
             
     }
     protected function _routesRecord(){
         \Route::get('','record')
                 ->name('record')
                 ->title(fn($r)=> $r->summary)
-                ->parent("$this->parentSlug.$this->recordSlug.index",fn($r)=> [$r->getParent()]);
+                ->parent("$this->parentSlug.$this->recordSlug.index",fn($r)=> [$r->getParent()])
+                
+                ;
         \Route::getPost("edit",'edit')
                 ->name("edit")
                 ->title('models.edit')
-                ->parent("$this->recordSlug.record");
+                ->parent("$this->recordSlug.record",fn($r)=>[$r]);
 
 
         \Route::getPost("delete",'delete')
                 ->name("delete")
                 ->title('models.delete')
-                ->parent("$this->recordSlug.record");
+                ->parent("$this->recordSlug.record",fn($r)=>[$r]);
 
             
     }

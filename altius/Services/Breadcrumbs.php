@@ -95,10 +95,15 @@ class Breadcrumbs {
             $parentParamsFn = $this->data[$name]?->params??null;
             $parentParams = is_callable($parentParamsFn ) ?
                             $parentParamsFn(...array_values($params))
-                            : $params;
+                            : [];
+                            
 
+            
+            
             $this->resolve($parent,$parentParams);
+
         }
+        
     
     }
 

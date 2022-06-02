@@ -26,11 +26,11 @@ class ModelController extends BaseModelController {
         \Route::getPost("edit",'edit')
                 ->name("edit")
                 ->title('models.edit')
-                ->parent("$this->recordSlug.record");
+                ->parent("$this->recordSlug.record",fn($r)=>[$r]);
         \Route::getPost("delete",'delete')
                 ->name("delete")
                 ->title('models.delete')
-                ->parent("$this->recordSlug.record");
+                ->parent("$this->recordSlug.record",fn($r)=>[$r]);
 
             
     }
