@@ -69,8 +69,8 @@ class ModelController extends BaseModelController {
         $this->record->fill($values)
             ->save();
         
-        messages()->info('%s %s has been created',$record->singular, $this->record->summary);        
-        return redirect($record->route());
+        messages()->info('%s %s has been created',$this->record->singular, $this->record->summary);        
+        return redirect($this->record->route());
     }
 
 
